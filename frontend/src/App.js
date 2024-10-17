@@ -17,7 +17,7 @@ function App() {
   const removeFromBasket = (product) => {
     setBasket(basket.filter((item) => item.id !== product.id));
   };
-
+  
   return (
     <div className="App">
       <Header />

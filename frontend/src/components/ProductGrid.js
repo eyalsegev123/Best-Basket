@@ -1,10 +1,19 @@
 import React from 'react';
-import './ProductGrid.css';
+import './ProductGrid.css'; // Importing the CSS file
 
 const products = [
-    { id: 1, name: 'Apple', logo: '/path-to-logo/apple-logo.png', price: 5 },
-    { id: 2, name: 'Banana', logo: '/path-to-logo/banana-logo.png', price: 3 },
-    // More products...
+    {
+      id: 1,
+      name: 'Apple',
+      price: 1.2,
+      logo: require('../assets/fruits/apple.png'), // Adjusted path
+    },
+    {
+      id: 2,
+      name: 'Banana',
+      price: 0.8,
+      logo: require('../assets/fruits/banana.png'), // Adjusted path
+    },
   ];
   
 
@@ -15,7 +24,7 @@ const ProductGrid = ({ addToBasket, basket }) => {
             <div key={product.id} className="product-card">
                 <img src={product.logo} alt={`${product.name} logo`} className="product-logo" />
                 <h3>{product.name}</h3>
-                <p>Price: {product.price}₪</p> {/* Show price here */}
+                <p>Price: {product.price}₪</p>
                 <button 
                     onClick={() => addToBasket(product)} 
                     disabled={basket.some(item => item.id === product.id)}
@@ -26,7 +35,6 @@ const ProductGrid = ({ addToBasket, basket }) => {
         ))}
       </section>
     );
-  };
-  
+};
 
 export default ProductGrid;
