@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './styles/App.css';
 import Header from './components/Header';
+import HomePage from './pages/HomePage';
 import ProductGrid from './components/ProductGrid';
 import Basket from './components/Basket';
+import OrderPage from './pages/OrderPage'; // Import the OrderPage component
 
 function App() {
   const [basket, setBasket] = useState([]);
 
   const addToBasket = (product) => {
-    // Check if the product is already in the basket before adding
     if (!basket.some(item => item.id === product.id)) {
       setBasket([...basket, product]);
     }
@@ -17,19 +19,25 @@ function App() {
   const removeFromBasket = (product) => {
     setBasket(basket.filter((item) => item.id !== product.id));
   };
-  
+
   return (
-    <div className="App">
-      <Header />
-      <main>
-        <section id="products">
-          <ProductGrid addToBasket={addToBasket} basket={basket} /> {/* Pass basket to ProductGrid */}
-        </section>
-        <section id="basket">
-          <Basket basket={basket} removeFromBasket={removeFromBasket} /> {/* Show the basket */}
-        </section>
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main>
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/products">
+              <ProductGrid addToBasket={addToBasket} basket={basket} />
+            </Route>
+            <Route path="/basket">
+              <Basket basket={basket} removeFromBasket={removeFromBasket} />
+            </Route>
+            <Route path="/order" component={OrderPage} /> {/* Add the route for OrderPage */}
+          </Switch>
+        </main>
+      </div>
+    </Router>
   );
 }
 
